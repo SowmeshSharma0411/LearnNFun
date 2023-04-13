@@ -16,6 +16,7 @@ import 'BusinessModelCanvas/homeScreen.dart';
 import 'auth.dart';
 import 'DesignThinking/data.dart';
 import 'login.dart';
+import 'menupage.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,7 +51,6 @@ class MyApp extends StatelessWidget {
           l1Score.task = {};
           l2Score.task = {};
           if (auth.getCurrentUser() != null) {
-
             if (auth.getCurrentUser().displayName == null ||
                 auth.getCurrentUser().displayName == "null") {
               return OverlaySupport(
@@ -59,7 +59,9 @@ class MyApp extends StatelessWidget {
                       title: 'Learn N Fun',
                       theme: ThemeData(
                         fontFamily: 'Quicksand',
-                        primaryColor: const Color(0xff16697a), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xffffa62b)),
+                        primaryColor: const Color(0xff16697a),
+                        colorScheme: ColorScheme.fromSwatch()
+                            .copyWith(secondary: const Color(0xffffa62b)),
                       ),
                       home: RegistrationInfo()));
             } else {
@@ -69,23 +71,25 @@ class MyApp extends StatelessWidget {
                       title: 'Learn N Fun',
                       theme: ThemeData(
                         fontFamily: 'Quicksand',
-                        primaryColor: const Color(0xff16697a), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xffffa62b)),
+                        primaryColor: const Color(0xff16697a),
+                        colorScheme: ColorScheme.fromSwatch()
+                            .copyWith(secondary: const Color(0xffffa62b)),
                       ),
                       home:
-                      GameSelection())); //TODO: Change this to whatever you want while testing, but change to GameSelection() before pushing
-
+                          GameSelection())); //TODO: Change this to whatever you want while testing, but change to GameSelection() before pushing
 
               //TaskCompleted(rewards: 10, task: true, trophies: 10)));
             }
           } else {
-
             return OverlaySupport(
                 child: MaterialApp(
                     debugShowCheckedModeBanner: false,
                     title: 'Learn N Fun',
                     theme: ThemeData(
                       fontFamily: 'Quicksand',
-                      primaryColor: const Color(0xff16697a), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xffffa62b)),
+                      primaryColor: const Color(0xff16697a),
+                      colorScheme: ColorScheme.fromSwatch()
+                          .copyWith(secondary: const Color(0xffffa62b)),
                     ),
                     home: Login()));
           }

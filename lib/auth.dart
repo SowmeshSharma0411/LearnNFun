@@ -8,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:overlay_support/overlay_support.dart';
 //import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
-
 DocumentReference<Map<String, dynamic>> userDocReference;
 
 class PasswordCheckError implements Exception {
@@ -47,7 +46,6 @@ class LoginSettings {
 }
 
 abstract class BaseAuth {
-
   Future<User> signIn({@required String email, @required String password});
 
   Future<LoginSettings> getLoginSettings({@required String email});
@@ -85,8 +83,6 @@ abstract class BaseAuth {
 }
 
 class Auth implements BaseAuth {
-
-
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   static String _smsVerificationCode;
 
@@ -98,7 +94,8 @@ class Auth implements BaseAuth {
       UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
-      userDocReference =  FirebaseFirestore.instance.collection("users").doc(user.uid);
+      userDocReference =
+          FirebaseFirestore.instance.collection("users").doc(user.uid);
       return user;
     } catch (e) {
       showSimpleNotification(Text(e.message), background: Color(0xff29a39d));
@@ -177,18 +174,21 @@ class Auth implements BaseAuth {
       User user = result.user;
       user.sendEmailVerification();
 
-      userDocReference =  FirebaseFirestore.instance.collection("users").doc(user.uid);
+      userDocReference =
+          FirebaseFirestore.instance.collection("users").doc(user.uid);
       return user;
     } else {
       if (password == password2) {
         UserCredential result = await _firebaseAuth
-            .createUserWithEmailAndPassword(email: email, password: password).catchError((e){
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .catchError((e) {
           throw PasswordFBError();
         });
         User user = result.user;
         user.sendEmailVerification();
 
-        userDocReference =  FirebaseFirestore.instance.collection("users").doc(user.uid);
+        userDocReference =
+            FirebaseFirestore.instance.collection("users").doc(user.uid);
         return user;
       } else {
         throw PasswordCheckError();
@@ -223,7 +223,9 @@ class Auth implements BaseAuth {
 
   User getCurrentUser() {
     User user = _firebaseAuth.currentUser;
-    if(user!=null) userDocReference =  FirebaseFirestore.instance.collection("users").doc(user.uid);
+    if (user != null)
+      userDocReference =
+          FirebaseFirestore.instance.collection("users").doc(user.uid);
     return user;
   }
 
@@ -352,11 +354,10 @@ class Auth implements BaseAuth {
 
     final User currentUser = _firebaseAuth.currentUser;
     assert(user.uid == currentUser.uid);
-    userDocReference =  FirebaseFirestore.instance.collection("users").doc(user.uid);
+    userDocReference =
+        FirebaseFirestore.instance.collection("users").doc(user.uid);
     return user;
   }
-
-
 
   /*Future<User> signInWithFacebook() async {
     FacebookLoginResult facebookLoginResult = await handleFBSignIn();
